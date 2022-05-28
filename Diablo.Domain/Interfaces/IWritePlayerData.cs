@@ -10,8 +10,8 @@ namespace Diablo.Domain.Interfaces
 {
     public interface IWritePlayerData
     {
-        Task<int> CreateNewPlayer(string name, PlayerClass playerClass);
+        Task<int> CreateNewPlayerAsync(string name, PlayerClass playerClass);
 
-        Task<int> UpdatePlayer(Player player);
+        Task<int> UpdatePlayerAsync(Player player);
     }
 }
