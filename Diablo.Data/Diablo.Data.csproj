@@ -7,10 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Persistence\Players\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\Diablo.Domain\Diablo.Domain.csproj" />
   </ItemGroup>
 

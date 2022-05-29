@@ -37,7 +37,7 @@ namespace Diablo.Data.DataAccess.WriteAccess
             await File.WriteAllTextAsync($"{Paths.PlayerData}{name}", playerData);
         }
 
-        public Task<int> UpdatePlayerAsync(Player player)
+        public Task UpdatePlayerAsync(Player player)
         {
             throw new NotImplementedException();
         }
