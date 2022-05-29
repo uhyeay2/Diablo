@@ -11,8 +11,18 @@ namespace Diablo.Data.DataAccess
 {
     internal static class Paths
     {
-        private static readonly string BasePath;
         static Paths()
+        {
+            SetBasePathAndCreateDirectories();
+        }
+
+        private static string BasePath = String.Empty;
+        
+        internal static string PlayerData =>  BasePath + "Players/";
+
+        internal static string SpecificPlayer(string name) => PlayerData + name;
+
+        private static void SetBasePathAndCreateDirectories()
         {
             var directory = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
 
@@ -25,7 +35,5 @@ namespace Diablo.Data.DataAccess
 
             Directory.CreateDirectory(PlayerData);
         }
-
-        internal static string PlayerData =>  BasePath + "Players/";
     }
 }

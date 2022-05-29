@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 namespace Diablo.Data.Tests
 {
     internal class DataTestConfig
     {
         internal const string TestPlayerName = "TestPlayerName";
+
+        internal const string PlayerNotFoundName = "PlayerNotFoundName";
 
         internal static string TestPlayerDataPath => Paths.PlayerData + TestPlayerName;
 
@@ -28,7 +25,7 @@ namespace Diablo.Data.Tests
             new object[] { new Player("          ", PlayerClass.Druid) }
         };
 
-        #endregion
+        #endregion        
 
         internal static void DeleteTestPlayerIfExists()
         {

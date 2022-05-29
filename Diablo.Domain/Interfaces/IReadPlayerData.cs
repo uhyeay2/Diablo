@@ -10,11 +10,11 @@ namespace Diablo.Domain.Interfaces
     public interface IReadPlayerData
     {
 
-        Task<Player> GetAllPlayersAsync();
+        Task<IEnumerable<Player>> GetAllPlayersAsync();
 
         Task<Player> GetPlayerByNameAsync(string name);
 
-        Task<bool> IsNameTakenAsync(string name);
+        bool IsNameTaken(string name);
 
     }
 }

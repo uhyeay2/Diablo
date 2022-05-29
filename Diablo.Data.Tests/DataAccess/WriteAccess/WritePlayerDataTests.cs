@@ -1,45 +1,33 @@
 ﻿using Diablo.Data.DataAccess.WriteAccess;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Text.Json;
-using System.Threading.Tasks;
 
 namespace Diablo.Data.Tests.DataAccess.WriteAccess
 {
     public class WritePlayerDataTests
     {
-        IWritePlayerData _playerDataWriter = null!;
+        private IWritePlayerData _playerDataWriter = null!;
 
-        Mock<IReadPlayerData> _mockedPlayerDataReader = null!;
+        private Mock<IReadPlayerData> _mockedPlayerDataReader = null!;
 
         private const string NameAlreadyTaken = "PlayerNameTaken";
+
+        private static object[] InvalidUpdatePlayerRequests => DataTestConfig.InvalidUpdatePlayerRequest;
+
+        private static object[] InvalidStringInputs => DataTestConfig.InvalidStringInputs;
         
-        private const string PlayerNotFoundName = "UpdatePlayerNotFound";
-
-        #region Setup/Teardown/TestCasesSources
-
         [SetUp]
         public void SetUp()
         {
             _mockedPlayerDataReader = new Mock<IReadPlayerData>();
 
-            _mockedPlayerDataReader.Setup(x => x.IsNameTakenAsync(NameAlreadyTaken)).Returns(Task.FromResult(true));
-            _mockedPlayerDataReader.Setup(x => x.IsNameTakenAsync(PlayerNotFoundName)).Returns(Task.FromResult(false));
-            _mockedPlayerDataReader.Setup(x => x.IsNameTakenAsync(DataTestConfig.TestPlayerName)).Returns(Task.FromResult(false));
+            _mockedPlayerDataReader.Setup(x => x.IsNameTaken(NameAlreadyTaken)).Returns(true);
+            _mockedPlayerDataReader.Setup(x => x.IsNameTaken(DataTestConfig.TestPlayerName)).Returns(false);
 
             _playerDataWriter = new WritePlayerData(_mockedPlayerDataReader.Object);
         }
 
         [TearDown]
         public void OneTimeTearDown() => DataTestConfig.DeleteTestPlayerIfExists();
-
-        private static object[] InvalidUpdatePlayerRequests => DataTestConfig.InvalidUpdatePlayerRequest;
-
-        private static object[] InvalidStringInputs => DataTestConfig.InvalidStringInputs;
-
-        #endregion
 
         [Test]
         [TestCaseSource(nameof(InvalidStringInputs))]
@@ -85,7 +73,8 @@ namespace Diablo.Data.Tests.DataAccess.WriteAccess
             var player = new Player(DataTestConfig.TestPlayerName, PlayerClass.Druid) { Level = 30 };
 
             await _playerDataWriter.CreateNewPlayerAsync(player.Name, player.PlayerClass);
-            _mockedPlayerDataReader.Setup(x => x.IsNameTakenAsync(DataTestConfig.TestPlayerName)).Returns(Task.FromResult(true));
+
+            _mockedPlayerDataReader.Setup(x => x.IsNameTaken(DataTestConfig.TestPlayerName)).Returns(true);
 
             await _playerDataWriter.UpdatePlayerAsync(player);
 

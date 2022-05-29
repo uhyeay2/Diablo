@@ -2,12 +2,7 @@
 using Diablo.Domain.Exceptions;
 using Diablo.Domain.Interfaces;
 using Diablo.Domain.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Text.Json;
-using System.Threading.Tasks;
 
 namespace Diablo.Data.DataAccess.WriteAccess
 {
@@ -27,12 +22,12 @@ namespace Diablo.Data.DataAccess.WriteAccess
                 throw new BadRequestException($"Player cannot be created without a name! Name provided was: {name}");
             }
 
-            if ( await _playerDataReader.IsNameTakenAsync(name))
+            if ( _playerDataReader.IsNameTaken(name))
             {
                 throw new NameAlreadyTakenException($"The name provided ({name}) has already been taken.");
             }
 
-            await SaveData($"{Paths.PlayerData}{name}", new Player(name, playerClass));
+            await SaveData(Paths.SpecificPlayer(name), new Player(name, playerClass));
         }
 
         public async Task UpdatePlayerAsync(Player player)
@@ -43,12 +38,12 @@ namespace Diablo.Data.DataAccess.WriteAccess
                     "Player received was null." : $"Player received did not have a valid name - Name: ({player!.Name})");
             }
 
-            if(!await _playerDataReader.IsNameTakenAsync(player.Name))
+            if(!_playerDataReader.IsNameTaken(player.Name))
             {
                 throw new PlayerNotFoundException($"No player was found with the name {player.Name}");
             }
 
-            await SaveData($"{Paths.PlayerData}{player.Name}", player);
+            await SaveData(Paths.SpecificPlayer(player.Name), player);
         }
 
         private async Task SaveData(string path, object obj) => 
