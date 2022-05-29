@@ -22,5 +22,12 @@ namespace Diablo.Data.Tests.DataAccess.WriteAccess.WritePlayerDataTests
             await Should.ThrowAsync<BadRequestException>(async () =>
                 await _playerDataWriter.UpdatePlayerAsync(player));
         }
+
+        [Test]
+        public async Task UpdatePlayer_Given_NoPlayerFound_Should_ThrowPlayerNotFoundException()
+        {
+            await Should.ThrowAsync<PlayerNotFoundException>(async () =>
+                await _playerDataWriter.UpdatePlayerAsync(new Player(WritePlayerDataTestConfig.TestPlayerName, PlayerClass.Barbarian)));
+        }
     }
 }

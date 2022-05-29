@@ -37,12 +37,17 @@ namespace Diablo.Data.DataAccess.WriteAccess
             await File.WriteAllTextAsync($"{Paths.PlayerData}{name}", playerData);
         }
 
-        public Task UpdatePlayerAsync(Player player)
+        public async Task UpdatePlayerAsync(Player player)
         {
             if (player == null || string.IsNullOrWhiteSpace(player.Name))
             {
                 throw new BadRequestException("Cannot Update Player - " + player == null ?
                     "Player received was null." : $"Player received did not have a valid name - Name: ({player!.Name})");
+            }
+
+            if(!await _playerDataReader.IsNameTakenAsync(player.Name))
+            {
+                throw new PlayerNotFoundException($"No player was found with the name {player.Name}");
             }
 
             throw new NotImplementedException();
