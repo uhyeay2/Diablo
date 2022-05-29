@@ -6,19 +6,21 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace Diablo.Data.DataAccess.WriteAccess
 {
     public class WritePlayerData : IWritePlayerData
     {
-        private readonly IReadPlayerData _playerDataReader = null!;
+        private readonly IReadPlayerData _playerDataReader;
+
         public WritePlayerData(IReadPlayerData playerDataReader)
         {
             _playerDataReader = playerDataReader;
         }
 
-        public async Task<int> CreateNewPlayerAsync(string name, PlayerClass playerClass)
+        public async Task CreateNewPlayerAsync(string name, PlayerClass playerClass)
         {
             if (string.IsNullOrWhiteSpace(name))
             {
@@ -29,8 +31,10 @@ namespace Diablo.Data.DataAccess.WriteAccess
             {
                 throw new NameAlreadyTakenException($"The name provided ({name}) has already been taken.");
             }
+            
+            var playerData = JsonSerializer.Serialize(new Player(name, playerClass));
 
-            throw new NotImplementedException();
+            await File.WriteAllTextAsync($"{Paths.PlayerData}{name}", playerData);
         }
 
         public Task<int> UpdatePlayerAsync(Player player)

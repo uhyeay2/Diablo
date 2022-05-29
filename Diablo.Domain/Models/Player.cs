@@ -9,6 +9,12 @@ namespace Diablo.Domain.Models
 {
     public class Player
     {
+        public Player(string name, PlayerClass playerClass)
+        {
+            Name = name;
+            PlayerClass = playerClass;
+        }
+
         public string Name { get; set; } = string.Empty;
 
         public int Level { get; set; } = 1;
