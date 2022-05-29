@@ -5,15 +5,34 @@ namespace Diablo.Data.Tests.DataAccess.WriteAccess.WritePlayerDataTests
     [TestFixture]
     public class CreatePlayerTests
     {
-        IWritePlayerData _playerDataWriter = new 
-            WritePlayerData(WritePlayerDataTestConfig.GetMockedPlayerDataReaderObject());
+        IWritePlayerData _playerDataWriter = null!;
+
+        private const string NameAlreadyTaken = "PlayerNameTaken";
+
+        private const string TestPlayerName = "TestPlayerName";
+
+        private static string TestPlayerDataPath => Paths.PlayerData + TestPlayerName;
+
+        [OneTimeSetUp]
+        public void OneTimeSetUp()
+        {
+            var mockedPlayerDataReader = new Mock<IReadPlayerData>();
+
+            mockedPlayerDataReader.Setup(x =>
+                x.IsNameTakenAsync(TestPlayerName)).Returns(Task.FromResult(false));
+
+            mockedPlayerDataReader.Setup(x =>
+                x.IsNameTakenAsync(NameAlreadyTaken)).Returns(Task.FromResult(true));
+
+            _playerDataWriter = new WritePlayerData(mockedPlayerDataReader.Object);
+        }
 
         [OneTimeTearDown]
         public void OneTimeTearDown()
         {
-            if (File.Exists(WritePlayerDataTestConfig.TestPlayerDataPath))
+            if (File.Exists(TestPlayerDataPath))
             {
-                File.Delete(WritePlayerDataTestConfig.TestPlayerDataPath);
+                File.Delete(TestPlayerDataPath);
             }
         }
 
@@ -31,15 +50,15 @@ namespace Diablo.Data.Tests.DataAccess.WriteAccess.WritePlayerDataTests
         public async Task CreateNewPlayer_Given_NameAlreadyTaken_Should_ThrowNameAlreadyTakenException()
         {
             await Should.ThrowAsync<NameAlreadyTakenException>(async () => await _playerDataWriter.
-                CreateNewPlayerAsync(WritePlayerDataTestConfig.NameAlreadyTaken, PlayerClass.Druid));
+                CreateNewPlayerAsync(NameAlreadyTaken, PlayerClass.Druid));
         }
 
         [Test]
         public async Task CreateNewPlayer_Given_NameNotTaken_Should_CreateNewTextFile()
         {
-            await _playerDataWriter.CreateNewPlayerAsync(WritePlayerDataTestConfig.TestPlayerName, PlayerClass.Druid);
+            await _playerDataWriter.CreateNewPlayerAsync(TestPlayerName, PlayerClass.Druid);
 
-            File.Exists(WritePlayerDataTestConfig.TestPlayerDataPath).ShouldBeTrue();
+            File.Exists(TestPlayerDataPath).ShouldBeTrue();
         }
     }
 }

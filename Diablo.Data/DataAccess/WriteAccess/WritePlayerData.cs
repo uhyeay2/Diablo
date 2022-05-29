@@ -31,10 +31,8 @@ namespace Diablo.Data.DataAccess.WriteAccess
             {
                 throw new NameAlreadyTakenException($"The name provided ({name}) has already been taken.");
             }
-            
-            var playerData = JsonSerializer.Serialize(new Player(name, playerClass));
 
-            await File.WriteAllTextAsync($"{Paths.PlayerData}{name}", playerData);
+            await SaveData($"{Paths.PlayerData}{name}", new Player(name, playerClass));
         }
 
         public async Task UpdatePlayerAsync(Player player)
@@ -50,7 +48,10 @@ namespace Diablo.Data.DataAccess.WriteAccess
                 throw new PlayerNotFoundException($"No player was found with the name {player.Name}");
             }
 
-            throw new NotImplementedException();
+            await SaveData($"{Paths.PlayerData}{player.Name}", player);
         }
+
+        private async Task SaveData(string path, object obj) => 
+            await File.WriteAllTextAsync(path, JsonSerializer.Serialize(obj));        
     }
 }
