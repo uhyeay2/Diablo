@@ -1,15 +1,13 @@
 ﻿using Diablo.ConsoleUI.Enums;
 using Diablo.ConsoleUI.ExtensionMethods;
+using System.Diagnostics;
 
-namespace Diablo.ConsoleUI.Screens
+namespace Diablo.ConsoleUI
 {
     internal class ScreenPrinter
     {
         private int _sleepTimer = 0;
         private WriteLineStyle _writeLineStyle = WriteLineStyle.Normal;
-
-        private bool _isPrinting = false;
-        internal bool IsPrinting => _isPrinting;
 
         internal void UpdateSettings(int? sleepTimer = null, WriteLineStyle? writeLineStyle = null)
         {
@@ -21,45 +19,9 @@ namespace Diablo.ConsoleUI.Screens
         {
             ClearScreen(clearBeforePrint);
 
-            _isPrinting = true;
-
             foreach (string s in strings)
             {
                 Print(s);
-            }
-
-            _isPrinting = false;
-        }
-
-        internal void Print(string str, bool clearBeforePrint = false)
-        {
-            ClearScreen(clearBeforePrint);
-
-            switch (_writeLineStyle)
-            {
-                case WriteLineStyle.Normal:
-                    goto default;
-                
-                case WriteLineStyle.SleepPerLine:
-                    Thread.Sleep(_sleepTimer);
-                    Console.WriteLine(str);
-                    break;
-
-                case WriteLineStyle.SleepPerCharacter:
-                    foreach (var c in str)
-                    {
-                        if(c != ' ')
-                        {
-                            Thread.Sleep(_sleepTimer);
-                        }
-                        Console.Write(c);
-                    }
-                    Console.Write("\n");
-                    break;
-
-                default:
-                    Console.WriteLine(str);
-                    break;
             }
         }
 
@@ -75,11 +37,43 @@ namespace Diablo.ConsoleUI.Screens
             PrintCenteredHorizontally(strings);
         }
 
-        private void CenterVertically(int numberOfStringsToPrint)
+        private void Print(string str, bool clearBeforePrint = false)
+        {
+            ClearScreen(clearBeforePrint);
+
+            switch (_writeLineStyle)
+            {
+                case WriteLineStyle.Normal:
+                    goto default;
+
+                case WriteLineStyle.SleepPerLine:
+                    Thread.Sleep(_sleepTimer);
+                    Console.WriteLine(str);
+                    break;
+
+                case WriteLineStyle.SleepPerCharacter:
+                    foreach (var c in str)
+                    {
+                        if (c != ' ')
+                        {
+                            Thread.Sleep(_sleepTimer);
+                        }
+                        Console.Write(c);
+                    }
+                    Console.Write("\n");
+                    break;
+
+                default:
+                    Console.WriteLine(str);
+                    break;
+            }
+        }
+
+        private static void CenterVertically(int numberOfStringsToPrint)
         {
             ClearScreen();
 
-            var numberOfLinesToSkip = (Console.WindowHeight / 2) - (numberOfStringsToPrint / 2);
+            var numberOfLinesToSkip = Console.WindowHeight / 2 - numberOfStringsToPrint / 2;
 
             Console.Write(new string('\n', numberOfLinesToSkip));
         }

@@ -1,6 +1,7 @@
-﻿using Diablo.ConsoleUI.Screens;
+﻿using Diablo.ConsoleUI.Constants;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,10 +16,19 @@ namespace Diablo.ConsoleUI
         {
             _screen.UpdateSettings(45, Enums.WriteLineStyle.SleepPerCharacter);
 
-            _screen.PrintCentered(new string[] {"Diablo","Console Edition v3.0","","Created By Daniel Aguirre","",
-            "For best results, it is recommended that you make your console window Full-Screen."});
+
+            _screen.PrintCentered(Messages.Get(Messages.Introduction));
+
+
 
             Console.ReadKey();
+
+            CharacterSelect();                            
+        }
+
+        private static void CharacterSelect()
+        {
+            _screen.PrintCentered(new string[] { "Select a character", "", "Options", "Options", "Options", "Options" });
         }
 
     }
