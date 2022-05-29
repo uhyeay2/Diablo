@@ -1,4 +1,5 @@
-﻿using Diablo.Domain.Interfaces;
+﻿using Diablo.Domain.Exceptions;
+using Diablo.Domain.Interfaces;
 using Diablo.Domain.Models;
 using System;
 using System.Collections.Generic;
@@ -17,6 +18,11 @@ namespace Diablo.Data.DataAccess.ReadAccess
 
         public Task<Player> GetPlayerByNameAsync(string name)
         {
+            if (string.IsNullOrWhiteSpace(name))
+            {
+                throw new BadRequestException($"Cannot locate player - Invalid name provided. Name received: ({name})");
+            }
+
             throw new NotImplementedException();
         }
 

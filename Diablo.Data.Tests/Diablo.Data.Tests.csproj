@@ -19,10 +19,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="DataAccess\ReadAccess\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\Diablo.Data\Diablo.Data.csproj" />
     <ProjectReference Include="..\Diablo.Domain\Diablo.Domain.csproj" />
   </ItemGroup>
