@@ -39,6 +39,12 @@ namespace Diablo.Data.DataAccess.WriteAccess
 
         public Task UpdatePlayerAsync(Player player)
         {
+            if (player == null || string.IsNullOrWhiteSpace(player.Name))
+            {
+                throw new BadRequestException("Cannot Update Player - " + player == null ?
+                    "Player received was null." : $"Player received did not have a valid name - Name: ({player!.Name})");
+            }
+
             throw new NotImplementedException();
         }
     }

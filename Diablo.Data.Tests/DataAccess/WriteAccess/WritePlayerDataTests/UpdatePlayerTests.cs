@@ -11,7 +11,8 @@ namespace Diablo.Data.Tests.DataAccess.WriteAccess.WritePlayerDataTests
         private static readonly object?[] _invalidUpdatePlayerRequests =
         {
             new object[] { new Player("", PlayerClass.Amazon) },
-            new object[] { new Player("  ", PlayerClass.Druid) }
+            new object[] { new Player(" ", PlayerClass.Necromancer) },
+            new object[] { new Player("          ", PlayerClass.Druid) }
         };  
 
         [Test]
