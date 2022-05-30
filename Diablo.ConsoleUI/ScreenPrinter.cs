@@ -67,6 +67,9 @@ namespace Diablo.ConsoleUI
                     Console.WriteLine(str);
                     break;
             }
+
+            // This fixes a bug so that when we press a key while a screen is being printed, the key press is ignored.
+            while(Console.KeyAvailable) { Console.ReadKey(true); }
         }
 
         private static void CenterVertically(int numberOfStringsToPrint)

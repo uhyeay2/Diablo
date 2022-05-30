@@ -1,43 +1,24 @@
-var builder = WebApplication.CreateBuilder(args);
+global using FluentValidation;
+global using FastEndpoints;
+using FastEndpoints.Swagger;
+using Diablo.Data.DataAccess.ReadAccess;
+using Diablo.Data.DataAccess.WriteAccess;
+using Diablo.Domain.Interfaces;
 
-// Add services to the container.
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+var builder = WebApplication.CreateBuilder();
+
+builder.Services.AddTransient<IWritePlayerData, WritePlayerData>();
+builder.Services.AddTransient<IReadPlayerData, ReadPlayerData>();
+
+builder.Services.AddFastEndpoints();
+builder.Services.AddSwaggerDoc();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
-
-app.UseHttpsRedirection();
-
-var summaries = new[]
-{
-    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-};
-
-app.MapGet("/weatherforecast", () =>
-{
-    var forecast = Enumerable.Range(1, 5).Select(index =>
-        new WeatherForecast
-        (
-            DateTime.Now.AddDays(index),
-            Random.Shared.Next(-20, 55),
-            summaries[Random.Shared.Next(summaries.Length)]
-        ))
-        .ToArray();
-    return forecast;
-})
-.WithName("GetWeatherForecast");
-
+// https://fast-endpoints.com/wiki/Swagger-Support.html
+// ^^ Where I found instructions for setting up FastEndpoints w/ Swagger
+app.UseAuthorization();
+app.UseFastEndpoints();
+app.UseOpenApi();
+app.UseSwaggerUi3(s => s.ConfigureDefaults());
 app.Run();
-
-internal record WeatherForecast(DateTime Date, int TemperatureC, string? Summary)
-{
-    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-}

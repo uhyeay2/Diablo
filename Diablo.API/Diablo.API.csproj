@@ -7,7 +7,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="FastEndpoints" Version="4.2.0" />
+    <PackageReference Include="FastEndpoints.Swagger" Version="4.2.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Diablo.Data\Diablo.Data.csproj" />
+    <ProjectReference Include="..\Diablo.Domain\Diablo.Domain.csproj" />
   </ItemGroup>
 
 </Project>
