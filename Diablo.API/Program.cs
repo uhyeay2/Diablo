@@ -1,9 +1,11 @@
 global using FluentValidation;
 global using FastEndpoints;
+global using Diablo.API.Endpoints.Routes;
+global using Diablo.Domain.Interfaces;
+
 using FastEndpoints.Swagger;
 using Diablo.Data.DataAccess.ReadAccess;
 using Diablo.Data.DataAccess.WriteAccess;
-using Diablo.Domain.Interfaces;
 
 var builder = WebApplication.CreateBuilder();
 
