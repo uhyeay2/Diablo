@@ -17,6 +17,10 @@ namespace Diablo.ConsoleUI
         {
             _screen.UpdateSettings(45, Enums.WriteLineStyle.SleepPerCharacter);
 
+            var apiPath = Directory.GetCurrentDirectory();
+
+            //Process.Start(apiPath);
+
             _screen.PrintCentered(Messages.Get(Messages.Introduction));
 
             Console.ReadKey();
@@ -26,7 +30,6 @@ namespace Diablo.ConsoleUI
 
         private static void CharacterSelect()
         {
-
         }
 
     }

@@ -1,4 +1,6 @@
 ﻿using Diablo.Data.DataAccess.ReadAccess;
+using Diablo.Domain.Models.Entities;
+using GenFu;
 using System.Text.Json;
 
 namespace Diablo.Data.Tests.DataAccess.ReadAccess
@@ -55,13 +57,7 @@ namespace Diablo.Data.Tests.DataAccess.ReadAccess
         [Test]
         public async Task GetAllPlayers_Given_MultiplePlayersExist_Should_ReturnAllPlayers()
         {
-            var players = new List<Player>()
-            {
-                new Player("TestPlayer1", PlayerClass.Sorceress),
-                new Player("TestPlayer2", PlayerClass.Druid),
-                new Player("TestPlayer3", PlayerClass.Necromancer),
-                new Player("TestPlayer4", PlayerClass.Paladin)
-            };
+            var players = A.ListOf<Player>(5);
 
             players.ForEach(p => File.WriteAllText(Paths.SpecificPlayer(p.Name), JsonSerializer.Serialize(p)));
 

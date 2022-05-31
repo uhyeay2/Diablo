@@ -1,4 +1,5 @@
 ﻿using Diablo.Data.DataAccess.WriteAccess;
+using Diablo.Domain.Models.Entities;
 using System.Text.Json;
 
 namespace Diablo.Data.Tests.DataAccess.WriteAccess

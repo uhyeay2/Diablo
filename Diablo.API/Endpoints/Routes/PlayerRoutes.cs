@@ -1,4 +1,8 @@
-﻿namespace Diablo.API.Endpoints.Routes
+﻿using System.Runtime.CompilerServices;
+
+[assembly: InternalsVisibleToAttribute("Diablo.API.Tests")]
+
+namespace Diablo.API.Endpoints.Routes
 {
     internal static class PlayerRoutes
     {

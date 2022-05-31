@@ -1,6 +1,6 @@
 ﻿using Diablo.Domain.Exceptions;
 using Diablo.Domain.Interfaces;
-using Diablo.Domain.Models;
+using Diablo.Domain.Models.Entities;
 using System.Text.Json;
 
 namespace Diablo.Data.DataAccess.ReadAccess

@@ -5,20 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Diablo.Domain.Models
+namespace Diablo.Domain.Models.RequestObjects
 {
-    public class Player
+    public class CreatePlayerRequest
     {
-        public Player(string name, PlayerClass playerClass)
-        {
-            Name = name;
-            PlayerClass = playerClass;
-        }
-
         public string Name { get; set; } = string.Empty;
-
-        public int Level { get; set; } = 1;
-
         public PlayerClass PlayerClass { get; set; }
     }
 }

@@ -21,9 +21,14 @@
             });
         }
 
-        public override async Task HandleAsync(CancellationToken c)
+        public override async Task<bool> ExecuteAsync(CancellationToken c)
         {
-            await SendAsync(await _playerDataReader.GetAllPlayersAsync() != null, cancellation: c);
+            return (await _playerDataReader.GetAllPlayersAsync()).Any();
         }
+
+        //public override async Task HandleAsync(CancellationToken c)
+        //{
+        //    await SendAsync((await _playerDataReader.GetAllPlayersAsync()).Any(), cancellation: c);
+        //}
     }
 }

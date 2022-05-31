@@ -2,6 +2,9 @@ global using FluentValidation;
 global using FastEndpoints;
 global using Diablo.API.Endpoints.Routes;
 global using Diablo.Domain.Interfaces;
+global using Diablo.Domain.Enums;
+global using Diablo.Domain.Models.Entities;
+global using Diablo.Domain.Models.RequestObjects;
 
 using FastEndpoints.Swagger;
 using Diablo.Data.DataAccess.ReadAccess;

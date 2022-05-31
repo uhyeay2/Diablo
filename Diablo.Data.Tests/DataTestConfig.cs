@@ -1,4 +1,6 @@
 ﻿
+using Diablo.Domain.Models.Entities;
+
 namespace Diablo.Data.Tests
 {
     internal class DataTestConfig
