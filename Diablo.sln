@@ -19,7 +19,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Diablo.Domain.Tests", "Diab
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Diablo.ConsoleUI", "Diablo.ConsoleUI\Diablo.ConsoleUI.csproj", "{F889C89F-63A7-49B8-8A13-E565F0533513}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Diablo.API", "Diablo.API\Diablo.API.csproj", "{F79179EF-96C5-49D7-85AF-A0C840C4CFBF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Diablo.API", "Diablo.API\Diablo.API.csproj", "{F79179EF-96C5-49D7-85AF-A0C840C4CFBF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Diablo.ConsoleUI.Tests", "Diablo.ConsoleUI.Tests\Diablo.ConsoleUI.Tests.csproj", "{1226D2C5-5083-42F3-8DB0-BADF3D746E4A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -55,6 +57,10 @@ Global
 		{F79179EF-96C5-49D7-85AF-A0C840C4CFBF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F79179EF-96C5-49D7-85AF-A0C840C4CFBF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F79179EF-96C5-49D7-85AF-A0C840C4CFBF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1226D2C5-5083-42F3-8DB0-BADF3D746E4A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1226D2C5-5083-42F3-8DB0-BADF3D746E4A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1226D2C5-5083-42F3-8DB0-BADF3D746E4A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1226D2C5-5083-42F3-8DB0-BADF3D746E4A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -67,6 +73,7 @@ Global
 		{E7904DDD-A79F-4A77-BCD6-0B3C1DD509E3} = {D998BC87-42B2-457F-9AFF-D4EAD8BA26AF}
 		{F889C89F-63A7-49B8-8A13-E565F0533513} = {3EA41AA6-31C7-4AF0-AC38-998CFD2C5172}
 		{F79179EF-96C5-49D7-85AF-A0C840C4CFBF} = {3EA41AA6-31C7-4AF0-AC38-998CFD2C5172}
+		{1226D2C5-5083-42F3-8DB0-BADF3D746E4A} = {D998BC87-42B2-457F-9AFF-D4EAD8BA26AF}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {26C4661A-E1DF-4951-8971-B8552E8E6EA0}

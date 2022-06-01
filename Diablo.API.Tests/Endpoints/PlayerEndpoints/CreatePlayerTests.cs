@@ -39,7 +39,8 @@ namespace Diablo.API.Tests.Endpoints.PlayerEndpoints
         public async Task CreatePlayer_Given_EmptyName_Should_ReturnBadResponse()
         {
             var (response, _) = await TestConfig.ApiClient
-                .POSTAsync<CreatePlayer, CreatePlayerRequest, CreatePlayerResponse>(new() { Name = string.Empty, PlayerClass = (PlayerClass)3 });
+                .POSTAsync<CreatePlayer, CreatePlayerRequest, CreatePlayerResponse>(
+                    new() { Name = string.Empty, PlayerClass = (PlayerClass)3 });
 
             response!.StatusCode.ShouldBe(HttpStatusCode.BadRequest);
         }
@@ -72,7 +73,8 @@ namespace Diablo.API.Tests.Endpoints.PlayerEndpoints
         {
             try
             {
-                await _createPlayerEndpoint.ExecuteAsync(new CreatePlayerRequest() { Name = _nameAlreadyTaken, PlayerClass = (PlayerClass)5 }, default);
+                await _createPlayerEndpoint.ExecuteAsync(new 
+                    CreatePlayerRequest() { Name = _nameAlreadyTaken, PlayerClass = (PlayerClass)5 }, default);
             }
             catch (ValidationFailureException ex)
             {

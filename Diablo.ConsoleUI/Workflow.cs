@@ -1,11 +1,7 @@
-﻿using Diablo.ConsoleUI.Constants;
-using Diablo.Domain.Interfaces;
-using System;
-using System.Collections.Generic;
+﻿using Diablo.ConsoleUI.API;
+using Diablo.ConsoleUI.Constants;
+using Diablo.Domain.Constants.Routes;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Diablo.ConsoleUI
 {
@@ -15,20 +11,21 @@ namespace Diablo.ConsoleUI
         
         public static void StartApplication()
         {
+
             _screen.UpdateSettings(45, Enums.WriteLineStyle.SleepPerCharacter);
 
-            var apiPath = Directory.GetCurrentDirectory();
-
-            //Process.Start(apiPath);
+            var apiProcess = Process.Start(ApiPath.Path);
 
             _screen.PrintCentered(Messages.Get(Messages.Introduction));
 
             Console.ReadKey();
 
-            CharacterSelect();                            
+            CharacterSelect();
+
+            apiProcess.Close();
         }
 
-        private static void CharacterSelect()
+        private static async void CharacterSelect()
         {
         }
 
