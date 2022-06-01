@@ -1,4 +1,6 @@
-﻿namespace Diablo.API.Endpoints.PlayerEndpoints
+﻿using Diablo.Domain.Models.ResponseObjects;
+
+namespace Diablo.API.Endpoints.PlayerEndpoints
 {
     public class CreatePlayer : Endpoint<CreatePlayerRequest, CreatePlayerResponse>
     {
@@ -29,17 +31,6 @@
             });
         }
 
-        //public override async Task HandleAsync(CreatePlayerRequest request, CancellationToken c)
-        //{
-        //    if (_playerDataReader.IsNameTaken(request.Name))
-        //        ThrowError(r => r.Name, $"The name '{request.Name}' has already been used.");
-
-        //    await _playerDataWriter.CreateNewPlayerAsync(request.Name, request.PlayerClass);
-
-        //    await SendAsync(new CreatePlayerResponse(
-        //        await _playerDataReader.GetPlayerByNameAsync(request.Name)), cancellation: c);
-        //}
-
         public override async Task<CreatePlayerResponse> ExecuteAsync(CreatePlayerRequest request, CancellationToken c)
         {
             if (_playerDataReader.IsNameTaken(request.Name))
@@ -49,11 +40,9 @@
 
             await _playerDataWriter.CreateNewPlayerAsync(request.Name, request.PlayerClass);
 
-            return new CreatePlayerResponse(await _playerDataReader.GetPlayerByNameAsync(request.Name)); ;
+            return new CreatePlayerResponse(await _playerDataReader.GetPlayerByNameAsync(request.Name));
         }
     }
-
-    public record struct CreatePlayerResponse (Player Player);
 
     public class CreatePlayerRequestValidator : Validator<CreatePlayerRequest> {
         public CreatePlayerRequestValidator() {

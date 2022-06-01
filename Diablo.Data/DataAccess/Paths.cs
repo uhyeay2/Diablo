@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 [assembly: InternalsVisibleToAttribute("Diablo.Data.Tests")]
+[assembly: InternalsVisibleToAttribute("Diablo.API.Tests")]
 namespace Diablo.Data.DataAccess
 {
     internal static class Paths

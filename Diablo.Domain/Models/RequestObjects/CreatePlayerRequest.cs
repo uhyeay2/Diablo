@@ -9,6 +9,14 @@ namespace Diablo.Domain.Models.RequestObjects
 {
     public class CreatePlayerRequest
     {
+        public CreatePlayerRequest() { }
+
+        public CreatePlayerRequest(string name, PlayerClass playerClass)
+        {
+            Name = name;
+            PlayerClass = playerClass;
+        }
+
         public string Name { get; set; } = string.Empty;
         public PlayerClass PlayerClass { get; set; }
     }

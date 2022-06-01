@@ -25,7 +25,7 @@ namespace Diablo.ConsoleUI
             apiProcess.Close();
         }
 
-        private static async void CharacterSelect()
+        private static void CharacterSelect()
         {
         }
 
