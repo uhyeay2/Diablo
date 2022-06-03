@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Diablo.Domain.Models.RequestObjects
+namespace Diablo.Domain.Models.RequestObjects.PlayerRequests
 {
     public class CreatePlayerRequest
     {

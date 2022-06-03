@@ -3,6 +3,7 @@ using Diablo.Domain.Constants.Routes;
 using Diablo.Domain.Enums;
 using Diablo.Domain.Models.Entities;
 using Diablo.Domain.Models.RequestObjects;
+using Diablo.Domain.Models.RequestObjects.PlayerRequests;
 using GenFu;
 using Shouldly;
 using System;
@@ -18,45 +19,26 @@ namespace Diablo.ConsoleUI.Tests.API
     [TestFixture]
     public class PlayerClientTests
     {
-        private PlayerClient _playerClient = new PlayerClient();
-        private Process _apiProcess = null!;
-
-        [OneTimeSetUp]
-        public void OneTimeSetUp()
-        {
-            _apiProcess = Process.Start(ApiPath.Path);
-        }
-
-        [OneTimeTearDown]
-        public void OneTimeTearDown()
-        {
-            _apiProcess.Close();
-        }
+        private PlayerClient _playerClient = new(new());
 
         [Test]
         public async Task DoesAnyPlayerExist_Given_NoPlayersExist_Should_ReturnFalse()
         {
-            var result = await _playerClient.DoesAnyPlayerExist();
-
-            result.ShouldBeFalse();
+            (await _playerClient.DoesAnyPlayerExist()).ShouldBeFalse();
         }
-
 
         [Test]
         public async Task DoesAnyPlayerExist_Given_PlayersExist_Should_ReturnTrue()
         {
-            var result = await _playerClient.DoesAnyPlayerExist();
-
-            result.ShouldBeFalse();
+            (await _playerClient.DoesAnyPlayerExist()).ShouldBeTrue();
         }
-
 
         [Test]
         public async Task CreatePlayer_GivenValidRequest_Should_ReturnPlayer()
         {
-            var result = await _playerClient.CreatePlayer(new CreatePlayerRequest("", (PlayerClass)5));
+            var validRequest = new CreatePlayerRequest("Daniel", (PlayerClass)5);
 
-            result.Player.Name.ShouldBe("Daniel");
+            (await _playerClient.CreatePlayer(validRequest)).Player.Name.ShouldBe("Daniel");
         }
     }
 }

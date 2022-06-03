@@ -2,7 +2,8 @@
 using Diablo.Domain.Enums;
 using Diablo.Domain.Interfaces;
 using Diablo.Domain.Models.Entities;
-using Diablo.Domain.Models.RequestObjects;
+using Diablo.Domain.Models.RequestObjects.PlayerRequests;
+using Diablo.Domain.Models.ResponseObjects.PlayerResponses;
 using FastEndpoints;
 using FastEndpoints.Validation;
 using GenFu;
@@ -23,7 +24,7 @@ namespace Diablo.API.Tests.Endpoints.PlayerEndpoints
 
 
         [OneTimeSetUp]
-        public void SetUp()
+        public void OneTimeSetUp()
         {
             var mockedPlayerDataReader = new Mock<IReadPlayerData>();
 
@@ -36,7 +37,7 @@ namespace Diablo.API.Tests.Endpoints.PlayerEndpoints
         }
 
         [Test]
-        public async Task CreatePlayer_Given_EmptyName_Should_ReturnBadResponse()
+        public async Task CreatePlayer_Given_EmptyName_Should_ReturnBadRequest()
         {
             var (response, _) = await TestConfig.ApiClient
                 .POSTAsync<CreatePlayer, CreatePlayerRequest, CreatePlayerResponse>(
@@ -48,7 +49,7 @@ namespace Diablo.API.Tests.Endpoints.PlayerEndpoints
         [Test]
         [TestCase("1")]
         [TestCase("12")]
-        public async Task CreatePlayer_Given_NameLessThanThreeCharacters_Should_ReturnBadResponse(string name)
+        public async Task CreatePlayer_Given_NameLessThanThreeCharacters_Should_ReturnBadRequest(string name)
         {
             var (response, _) = await TestConfig.ApiClient
                 .POSTAsync<CreatePlayer, CreatePlayerRequest, CreatePlayerResponse>(new() { Name = name, PlayerClass = (PlayerClass)2 });
@@ -60,7 +61,7 @@ namespace Diablo.API.Tests.Endpoints.PlayerEndpoints
         [Test]
         [TestCase("123456789012345678901")]
         [TestCase("123456789012345678   23")]
-        public async Task CreatePlayer_Given_NameGreaterThanTwentyCharacters_Should_ReturnBadResponse(string name)
+        public async Task CreatePlayer_Given_NameGreaterThanTwentyCharacters_Should_ReturnBadRequest(string name)
         {
             var (response, _) = await TestConfig.ApiClient
                 .POSTAsync<CreatePlayer, CreatePlayerRequest, CreatePlayerResponse>(new() { Name = name, PlayerClass = (PlayerClass)5 });
@@ -69,7 +70,7 @@ namespace Diablo.API.Tests.Endpoints.PlayerEndpoints
         }
 
         [Test]
-        public async Task CreatePlayer_Given_NameAlreadyTaken_Should_ReturnBadResponse()
+        public async Task CreatePlayer_Given_NameAlreadyTaken_Should_ReturnBadRequest()
         {
             try
             {
@@ -82,6 +83,7 @@ namespace Diablo.API.Tests.Endpoints.PlayerEndpoints
                 // Here I assert against the InnerException Message to make sure the correct error is being thrown.
                 ex.InnerException?.Message.ShouldBe($"The name '{_nameAlreadyTaken}' has already been used.");
                 // When the API is running the response is a 400 (BadRequest)
+                //TODO: Can we assert this differently?
             }            
         }
 

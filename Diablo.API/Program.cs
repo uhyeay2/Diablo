@@ -5,6 +5,7 @@ global using Diablo.Domain.Interfaces;
 global using Diablo.Domain.Enums;
 global using Diablo.Domain.Models.Entities;
 global using Diablo.Domain.Models.RequestObjects;
+global using Diablo.Domain.Models.ResponseObjects;
 
 using FastEndpoints.Swagger;
 using Diablo.Data.DataAccess.ReadAccess;

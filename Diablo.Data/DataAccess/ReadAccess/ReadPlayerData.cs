@@ -20,7 +20,6 @@ namespace Diablo.Data.DataAccess.ReadAccess
                 {
                     players.Add(await GetPlayerByNameAsync(playerName));
                 }
-
                 return players;
 
             }

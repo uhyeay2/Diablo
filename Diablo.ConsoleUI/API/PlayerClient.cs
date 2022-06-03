@@ -1,13 +1,8 @@
 ﻿using Diablo.Domain.Constants.Routes;
-using Diablo.Domain.Models.Entities;
-using Diablo.Domain.Models.RequestObjects;
-using Diablo.Domain.Models.ResponseObjects;
+using Diablo.Domain.Models.RequestObjects.PlayerRequests;
+using Diablo.Domain.Models.ResponseObjects.PlayerResponses;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
 using System.Net;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -18,10 +13,17 @@ namespace Diablo.ConsoleUI.API
 {
     internal class PlayerClient
     {
-        private HttpClient _client = new();
+        private HttpClient _client;
+
+        public PlayerClient(HttpClient client)
+        {
+            _client = client;
+        }
 
         internal async Task<bool> DoesAnyPlayerExist()
-        {      
+        {
+            using var api = ApiFactory.StartDisposableApi();
+
             var response = await _client.GetAsync(ApiPath.GetUrl(PlayerRoutes.DoesAnyPlayerExist));
 
             if(response.StatusCode == HttpStatusCode.OK)
@@ -37,19 +39,16 @@ namespace Diablo.ConsoleUI.API
 
         internal async Task<CreatePlayerResponse> CreatePlayer(CreatePlayerRequest request)
         {
-            var response = await _client.PostAsync(ApiPath.GetUrl(PlayerRoutes.CreatePlayer),
-                new StringContent(JsonConvert.SerializeObject(request), UnicodeEncoding.UTF8, "application/json"));
+            using var api = ApiFactory.StartDisposableApi();
+
+            var response = await _client.PostAsync(ApiPath.GetUrl(PlayerRoutes.CreatePlayer), JsonHandler.ConvertRequest(request));
 
             if (response.StatusCode == HttpStatusCode.OK)
             {
-                return JsonConvert.DeserializeObject<CreatePlayerResponse>(await response.Content.ReadAsStringAsync());
+                return await JsonHandler.ConvertResponse<CreatePlayerResponse>(response);
             }
 
-            return new() 
-            { 
-                ErrorMessages = JObject.Parse(await response.Content.ReadAsStringAsync())["errors"].Select(x => x.ToString()).ToArray() 
-            };
+            return (CreatePlayerResponse)await JsonHandler.ConvertErrorResponse(response);
         }
-
     }
 }

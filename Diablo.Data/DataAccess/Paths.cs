@@ -21,7 +21,7 @@ namespace Diablo.Data.DataAccess
         
         internal static string PlayerData =>  BasePath + "Players/";
 
-        internal static string SpecificPlayer(string name) => PlayerData + name;
+        internal static string SpecificPlayer(string playerName) => PlayerData + playerName;
 
         private static void SetBasePathAndCreateDirectories()
         {

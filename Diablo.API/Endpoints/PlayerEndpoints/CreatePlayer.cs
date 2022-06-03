@@ -1,11 +1,11 @@
-﻿using Diablo.Domain.Models.ResponseObjects;
+﻿using Diablo.Domain.Models.RequestObjects.PlayerRequests;
+using Diablo.Domain.Models.ResponseObjects.PlayerResponses;
 
 namespace Diablo.API.Endpoints.PlayerEndpoints
 {
     public class CreatePlayer : Endpoint<CreatePlayerRequest, CreatePlayerResponse>
     {
-        private readonly IWritePlayerData _playerDataWriter;
-        
+        private readonly IWritePlayerData _playerDataWriter;       
         private readonly IReadPlayerData _playerDataReader;
 
         public CreatePlayer(IWritePlayerData playerDataWriter, IReadPlayerData playerDataReader)
@@ -18,16 +18,21 @@ namespace Diablo.API.Endpoints.PlayerEndpoints
         {
             Post(PlayerRoutes.CreatePlayer);
             AllowAnonymous();
-            Description(d => d
-                .Produces(400));
-            Summary(s =>
+            Description(endpoint => endpoint.Produces(400));
+            Summary(endpoint =>
             {
-                s.Summary = "Given a PlayerClass and a name between 3-20 characters that has not already" +
+                endpoint.Summary = "Given a PlayerClass and a name between 3-20 characters that has not already" +
                     " been used, create a new player.";
-                s.ExampleRequest = new CreatePlayerRequest() { Name = "Daniel", PlayerClass = PlayerClass.Druid };
-                s.Responses[200] = "When a request is successful, the player created is returned";
-                s.Responses[400] = "400 Response is returned when given an invalid name,"+
+                
+                endpoint.Responses[200] = "When a request is successful, the player created is returned";
+                endpoint.Responses[400] = "400 Response is returned when given an invalid name,"+
                     " or if the name provided has already been used.";
+
+                endpoint.ExampleRequest = new CreatePlayerRequest() 
+                { 
+                    Name = "Daniel", 
+                    PlayerClass = PlayerClass.Druid 
+                };
             });
         }
 

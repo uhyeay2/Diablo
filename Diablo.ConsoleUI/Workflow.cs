@@ -14,15 +14,12 @@ namespace Diablo.ConsoleUI
 
             _screen.UpdateSettings(45, Enums.WriteLineStyle.SleepPerCharacter);
 
-            var apiProcess = Process.Start(ApiPath.Path);
-
             _screen.PrintCentered(Messages.Get(Messages.Introduction));
 
             Console.ReadKey();
 
             CharacterSelect();
 
-            apiProcess.Close();
         }
 
         private static void CharacterSelect()

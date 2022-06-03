@@ -46,7 +46,7 @@ namespace Diablo.Data.DataAccess.WriteAccess
             await SaveData(Paths.SpecificPlayer(player.Name), player);
         }
 
-        private async Task SaveData(string path, object obj) => 
+        private static async Task SaveData(string path, object obj) => 
             await File.WriteAllTextAsync(path, JsonSerializer.Serialize(obj));        
     }
 }

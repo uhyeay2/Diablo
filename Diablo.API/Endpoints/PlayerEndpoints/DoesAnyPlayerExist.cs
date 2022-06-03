@@ -25,10 +25,5 @@
         {
             return (await _playerDataReader.GetAllPlayersAsync()).Any();
         }
-
-        //public override async Task HandleAsync(CancellationToken c)
-        //{
-        //    await SendAsync((await _playerDataReader.GetAllPlayersAsync()).Any(), cancellation: c);
-        //}
     }
 }
