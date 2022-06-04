@@ -12,6 +12,12 @@ namespace Diablo.Data.Tests.DataAccess.ReadAccess
 
         private static object[] InvalidStringInputs => DataTestConfig.InvalidStringInputs;
 
+        [TearDown]
+        public void TearDown()
+        {
+            DataTestConfig.DeleteTestPlayerIfExists();
+        }
+
         [Test]
         [TestCaseSource(nameof(InvalidStringInputs))]
         public async Task GetPlayerByName_Given_InvalidName_Should_ThrowBadRequestException(string name)
@@ -50,8 +56,6 @@ namespace Diablo.Data.Tests.DataAccess.ReadAccess
             await File.WriteAllTextAsync(DataTestConfig.TestPlayerDataPath, JsonSerializer.Serialize(player));
 
             (await _playerDataReader.GetAllPlayersAsync()).First().Name.ShouldBe(player.Name);
-
-            DataTestConfig.DeleteTestPlayerIfExists();
         }
 
         [Test]
@@ -61,7 +65,7 @@ namespace Diablo.Data.Tests.DataAccess.ReadAccess
 
             players.ForEach(p => File.WriteAllText(Paths.SpecificPlayer(p.Name), JsonSerializer.Serialize(p)));
 
-            ( await _playerDataReader.GetAllPlayersAsync()).Count().ShouldBe(players.Count());
+            ( await _playerDataReader.GetAllPlayersAsync()).Count().ShouldBe(players.Count);
 
             players.ForEach(p => File.Delete(Paths.SpecificPlayer(p.Name)));
         }
