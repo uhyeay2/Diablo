@@ -6,8 +6,6 @@ using Diablo.Domain.Models.RequestObjects.PlayerRequests;
 using Diablo.Domain.Models.ResponseObjects.PlayerResponses;
 using FastEndpoints;
 using FastEndpoints.Validation;
-using GenFu;
-using Microsoft.Extensions.Configuration;
 using Moq;
 using Shouldly;
 using System.Net;
@@ -20,8 +18,8 @@ namespace Diablo.API.Tests.Endpoints.PlayerEndpoints
         private CreatePlayer _createPlayerEndpoint;
 
         private readonly string _nameAlreadyTaken = "NameAlreadyTaken";
-        private readonly Player _testPlayer = new("TestPlayer", (PlayerClass)1);
 
+        private readonly Player _testPlayer = new("TestPlayer", (PlayerClass)1);
 
         [OneTimeSetUp]
         public void OneTimeSetUp()

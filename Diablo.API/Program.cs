@@ -1,15 +1,16 @@
 global using FluentValidation;
 global using FastEndpoints;
-global using Diablo.API.Endpoints.Routes;
 global using Diablo.Domain.Interfaces;
 global using Diablo.Domain.Enums;
 global using Diablo.Domain.Models.Entities;
-global using Diablo.Domain.Models.RequestObjects;
-global using Diablo.Domain.Models.ResponseObjects;
 
 using FastEndpoints.Swagger;
 using Diablo.Data.DataAccess.ReadAccess;
 using Diablo.Data.DataAccess.WriteAccess;
+using System.Runtime.CompilerServices;
+
+[assembly: InternalsVisibleToAttribute("Diablo.API.Tests")]
+
 
 var builder = WebApplication.CreateBuilder();
 

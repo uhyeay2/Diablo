@@ -1,4 +1,6 @@
-﻿namespace Diablo.API.Endpoints.PlayerEndpoints
+﻿using Diablo.Domain.Constants.Routes;
+
+namespace Diablo.API.Endpoints.PlayerEndpoints
 {
     public class DoesAnyPlayerExist : EndpointWithoutRequest<bool>
     {

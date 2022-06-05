@@ -9,12 +9,11 @@ namespace Diablo.Domain.Constants.Routes
 {
     public static class ApiPath
     {
-
         private static readonly string _apiPath;
         public static string Path => _apiPath;
 
         //TODO: Get this from launcher settings?
-        private static readonly string _baseUrl = "https://localhost:5001";
+        private static readonly string _baseUrl = "https://localhost:5001/";
 
         public static string GetUrl(string route) => _baseUrl + route;
 

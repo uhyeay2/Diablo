@@ -16,7 +16,7 @@ namespace Diablo.ConsoleUI.API
 
     internal class DisposableApi : IDisposable
     {
-        private Process _apiProcess;
+        private readonly Process _apiProcess;
 
         public DisposableApi(string apiExePath)
         {

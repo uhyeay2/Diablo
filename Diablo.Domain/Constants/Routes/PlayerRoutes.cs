@@ -8,8 +8,12 @@ namespace Diablo.Domain.Constants.Routes
 {
     public static class PlayerRoutes
     {
-        public const string CreatePlayer = "/player/create";
+        public const string CreatePlayer = "player/create";
 
-        public const string DoesAnyPlayerExist = "/player/doesAnyPlayerExist";
+        public const string DoesAnyPlayerExist = "player/doesAnyPlayerExist";
+
+        public const string GetAllPlayers = "player/getAllPlayers";
+
+        public const string GetPlayerByName = "player/getPlayer";
     }
 }

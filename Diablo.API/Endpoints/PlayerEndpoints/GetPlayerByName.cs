@@ -1,4 +1,5 @@
-﻿using Diablo.Domain.Models.RequestObjects.PlayerRequests;
+﻿using Diablo.Domain.Constants.Routes;
+using Diablo.Domain.Models.RequestObjects.PlayerRequests;
 
 namespace Diablo.API.Endpoints.PlayerEndpoints
 {
