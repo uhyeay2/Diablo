@@ -9,7 +9,7 @@ namespace Diablo.ConsoleUI.Tests.API
     public class PlayerClientTests
     {
         private MockHttpMessageHandler _mockedClient = null!;
-        private Mock<IJsonHandler> _mockedJsonHandler = new();
+        private readonly Mock<IJsonHandler> _mockedJsonHandler = new();
         private Player _testPlayer = null!;
 
         [SetUp]

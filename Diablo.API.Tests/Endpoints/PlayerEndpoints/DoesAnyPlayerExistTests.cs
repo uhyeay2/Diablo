@@ -13,7 +13,7 @@ namespace Diablo.API.Tests.Endpoints.PlayerEndpoints
     public class DoesAnyPlayerExistTests
     {
         [Test]
-        public async Task DoesAnyPlayerExist_Given_NoPlayersExist_Should_ReturnFalse()
+        public async Task Given_NoPlayersExist_Should_ReturnFalse()
         {
             var mockedPlayerDataReader = new Mock<IReadPlayerData>();
             mockedPlayerDataReader.Setup(x => x.GetAllPlayersAsync()).Returns(Task.FromResult(Enumerable.Empty<Player>()));
@@ -24,7 +24,7 @@ namespace Diablo.API.Tests.Endpoints.PlayerEndpoints
         }
 
         [Test]
-        public async Task DoesAnyPlayerExist_GivenPlayersExist_Should_ReturnTrue()
+        public async Task GivenPlayersExist_Should_ReturnTrue()
         {
             var mockedPlayerDataReader = new Mock<IReadPlayerData>();
             mockedPlayerDataReader.Setup(x => x.GetAllPlayersAsync()).Returns(Task.FromResult(A.ListOf<Player>().AsEnumerable()));

@@ -15,5 +15,7 @@ namespace Diablo.Domain.Constants.Routes
         public const string GetAllPlayers = "player/getAllPlayers";
 
         public const string GetPlayerByName = "player/getPlayer";
+
+        public const string IsNameTaken = "player/isNameTaken";
     }
 }

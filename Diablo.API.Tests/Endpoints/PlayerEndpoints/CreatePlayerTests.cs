@@ -35,7 +35,7 @@ namespace Diablo.API.Tests.Endpoints.PlayerEndpoints
         }
 
         [Test]
-        public async Task CreatePlayer_Given_EmptyName_Should_ReturnBadRequest()
+        public async Task Given_EmptyName_Should_ReturnBadRequest()
         {
             var (response, _) = await TestConfig.ApiClient
                 .POSTAsync<CreatePlayer, CreatePlayerRequest, CreatePlayerResponse>(
@@ -47,7 +47,7 @@ namespace Diablo.API.Tests.Endpoints.PlayerEndpoints
         [Test]
         [TestCase("1")]
         [TestCase("12")]
-        public async Task CreatePlayer_Given_NameLessThanThreeCharacters_Should_ReturnBadRequest(string name)
+        public async Task Given_NameLessThanThreeCharacters_Should_ReturnBadRequest(string name)
         {
             var (response, _) = await TestConfig.ApiClient
                 .POSTAsync<CreatePlayer, CreatePlayerRequest, CreatePlayerResponse>(new() { Name = name, PlayerClass = (PlayerClass)2 });
@@ -59,7 +59,7 @@ namespace Diablo.API.Tests.Endpoints.PlayerEndpoints
         [Test]
         [TestCase("123456789012345678901")]
         [TestCase("123456789012345678   23")]
-        public async Task CreatePlayer_Given_NameGreaterThanTwentyCharacters_Should_ReturnBadRequest(string name)
+        public async Task Given_NameGreaterThanTwentyCharacters_Should_ReturnBadRequest(string name)
         {
             var (response, _) = await TestConfig.ApiClient
                 .POSTAsync<CreatePlayer, CreatePlayerRequest, CreatePlayerResponse>(new() { Name = name, PlayerClass = (PlayerClass)5 });
@@ -68,7 +68,7 @@ namespace Diablo.API.Tests.Endpoints.PlayerEndpoints
         }
 
         [Test]
-        public async Task CreatePlayer_Given_NameAlreadyTaken_Should_ReturnBadRequest()
+        public async Task Given_NameAlreadyTaken_Should_ReturnBadRequest()
         {
             try
             {
@@ -86,7 +86,7 @@ namespace Diablo.API.Tests.Endpoints.PlayerEndpoints
         }
 
         [Test]
-        public async Task CreatePlayer_Given_ValidName_Should_ReturnCreatedPlayer()
+        public async Task Given_ValidName_Should_ReturnCreatedPlayer()
         {
             var result = await _createPlayerEndpoint.ExecuteAsync(new() { Name = _testPlayer.Name, PlayerClass = _testPlayer.PlayerClass }, default);
 
