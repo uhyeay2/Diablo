@@ -51,14 +51,9 @@ namespace Diablo.API.Tests.Endpoints.PlayerEndpoints
         [Test]
         public async Task Given_NoPlayerIsFound_Should_ReturnBadRequest()
         {
-            try
-            {
-                await _endpoint.ExecuteAsync(new GetPlayerByNameRequest(_nameFound), default);
-            }
-            catch (ValidationFailureException ex)
-            {
-                ex.InnerException?.Message.ShouldBe($"The name '{_nameFound}' has already been used.");
-            }
+            var (response, _) = await TestConfig.ApiClient.GETAsync<GetPlayerByName, GetPlayerByNameRequest, Player>(new GetPlayerByNameRequest(_nameNotFound));
+
+            response!.StatusCode.ShouldBe(System.Net.HttpStatusCode.BadRequest);
         }
     }
 }

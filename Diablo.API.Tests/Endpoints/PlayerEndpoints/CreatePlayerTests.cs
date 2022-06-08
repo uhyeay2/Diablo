@@ -1,4 +1,5 @@
 ﻿using Diablo.API.Endpoints.PlayerEndpoints;
+using Diablo.Data.DataAccess;
 using Diablo.Domain.Enums;
 using Diablo.Domain.Interfaces;
 using Diablo.Domain.Models.Entities;
@@ -70,19 +71,14 @@ namespace Diablo.API.Tests.Endpoints.PlayerEndpoints
         [Test]
         public async Task Given_NameAlreadyTaken_Should_ReturnBadRequest()
         {
-            try
-            {
-                await _createPlayerEndpoint.ExecuteAsync(new 
-                    CreatePlayerRequest() { Name = _nameAlreadyTaken, PlayerClass = (PlayerClass)5 }, default);
-            }
-            catch (ValidationFailureException ex)
-            {
-                // In unit testing the ValidationFailureException fails the test and we cannot get the 400 response.
-                // Here I assert against the InnerException Message to make sure the correct error is being thrown.
-                ex.InnerException?.Message.ShouldBe($"The name '{_nameAlreadyTaken}' has already been used.");
-                // When the API is running the response is a 400 (BadRequest)
-                //TODO: Can we assert this differently?
-            }            
+            //var (response, _) = await TestConfig.ApiClient
+            //.POSTAsync<CreatePlayer, CreatePlayerRequest, CreatePlayerResponse>(new CreatePlayerRequest(_nameAlreadyTaken, (PlayerClass)5));
+
+            //response!.StatusCode.ShouldBe(HttpStatusCode.BadRequest);
+
+            var response = await _createPlayerEndpoint.ExecuteAsync(new CreatePlayerRequest(_nameAlreadyTaken, (PlayerClass)5), default);
+
+            response.ErrorMessages.ShouldNotBeEmpty();
         }
 
         [Test]
@@ -91,6 +87,8 @@ namespace Diablo.API.Tests.Endpoints.PlayerEndpoints
             var result = await _createPlayerEndpoint.ExecuteAsync(new() { Name = _testPlayer.Name, PlayerClass = _testPlayer.PlayerClass }, default);
 
             result.Player.ShouldBe(_testPlayer);
+
+            File.Delete(Paths.SpecificPlayer(_testPlayer.Name));
         }
     }
 }

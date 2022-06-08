@@ -46,6 +46,21 @@ namespace Diablo.Data.DataAccess.WriteAccess
             await SaveData(Paths.SpecificPlayer(player.Name), player);
         }
 
+        public void DeletePlayer(string name)
+        {
+            if(string.IsNullOrWhiteSpace(name))
+            {
+                throw new BadRequestException($"Cannot delete player - Invalid name provided. Name: {name}");
+            }
+
+            if(!_playerDataReader.IsNameTaken(name))
+            {
+                throw new PlayerNotFoundException($"No player was found with the name {name}");
+            }
+
+            File.Delete(Paths.SpecificPlayer(name));
+        }
+
         private static async Task SaveData(string path, object obj) => 
             await File.WriteAllTextAsync(path, JsonSerializer.Serialize(obj));        
     }

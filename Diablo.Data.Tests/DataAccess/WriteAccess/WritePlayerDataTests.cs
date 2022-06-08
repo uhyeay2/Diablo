@@ -34,15 +34,13 @@ namespace Diablo.Data.Tests.DataAccess.WriteAccess
         [TestCaseSource(nameof(InvalidStringInputs))]
         public async Task CreateNewPlayer_Given_InvalidName_Should_ThrowBadRequestException(string name)
         {
-            await Should.ThrowAsync<BadRequestException>(async () =>
-                await _playerDataWriter.CreateNewPlayerAsync(name, PlayerClass.Druid));
+            await Should.ThrowAsync<BadRequestException>(async () => await _playerDataWriter.CreateNewPlayerAsync(name, PlayerClass.Druid));
         }
 
         [Test]
         public async Task CreateNewPlayer_Given_NameAlreadyTaken_Should_ThrowNameAlreadyTakenException()
         {
-            await Should.ThrowAsync<NameAlreadyTakenException>(async () => await _playerDataWriter.
-                CreateNewPlayerAsync(NameAlreadyTaken, PlayerClass.Druid));
+            await Should.ThrowAsync<NameAlreadyTakenException>(async () => await _playerDataWriter.CreateNewPlayerAsync(NameAlreadyTaken, PlayerClass.Druid));
         }
 
         [Test]
@@ -57,8 +55,7 @@ namespace Diablo.Data.Tests.DataAccess.WriteAccess
         [TestCaseSource(nameof(InvalidUpdatePlayerRequests))]
         public async Task UpdatePlayer_Given_InvalidPlayer_Should_ThrowBadRequestException(Player player)
         {
-            await Should.ThrowAsync<BadRequestException>(async () =>
-                await _playerDataWriter.UpdatePlayerAsync(player));
+            await Should.ThrowAsync<BadRequestException>(async () => await _playerDataWriter.UpdatePlayerAsync(player));
         }
 
         [Test]
@@ -79,8 +76,34 @@ namespace Diablo.Data.Tests.DataAccess.WriteAccess
 
             await _playerDataWriter.UpdatePlayerAsync(player);
 
-            JsonSerializer.Deserialize<Player>(File.ReadAllText(DataTestConfig.TestPlayerDataPath))?
-                .Level.ShouldBe(player.Level);
+            JsonSerializer.Deserialize<Player>(File.ReadAllText(DataTestConfig.TestPlayerDataPath))?.Level.ShouldBe(player.Level);
+        }
+
+        [Test]
+        [TestCaseSource(nameof(InvalidStringInputs))]
+        public void DeletePlayer_Given_InvalidRequest_Should_ThrowBadRequestException(string name)
+        {
+            Should.Throw<BadRequestException>(() => _playerDataWriter.DeletePlayer(name));
+        }
+
+        [Test]
+        public void DeletePlayer_Given_PlayerNotFound_Should_ThrowPlayerNotFoundException()
+        {
+            Should.Throw<PlayerNotFoundException>(() => _playerDataWriter.DeletePlayer(DataTestConfig.TestPlayerName));
+        }
+
+        [Test]
+        public async Task DeletePlayer_Given_PlayerFound_Should_DeletePlayer()
+        {
+            var player = new Player(DataTestConfig.TestPlayerName, PlayerClass.Druid) { Level = 30 };
+
+            await _playerDataWriter.CreateNewPlayerAsync(player.Name, player.PlayerClass);
+
+            _mockedPlayerDataReader.Setup(x => x.IsNameTaken(DataTestConfig.TestPlayerName)).Returns(true);
+
+            _playerDataWriter.DeletePlayer(player.Name);
+
+            File.Exists(Paths.SpecificPlayer(player.Name)).ShouldBeFalse();
         }
     }
 }

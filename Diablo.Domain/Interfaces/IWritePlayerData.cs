@@ -13,5 +13,7 @@ namespace Diablo.Domain.Interfaces
         Task CreateNewPlayerAsync(string name, PlayerClass playerClass);
 
         Task UpdatePlayerAsync(Player player);
+
+        void DeletePlayer(string name);
     }
 }

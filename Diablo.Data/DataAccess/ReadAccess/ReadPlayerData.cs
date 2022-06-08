@@ -50,7 +50,7 @@ namespace Diablo.Data.DataAccess.ReadAccess
         /// </summary>
         /// <param name="name"></param>
         /// <exception cref="BadRequestException"></exception>
-        private void ValidateNameParameter(string name)
+        private static void ValidateNameParameter(string name)
         {
             if (string.IsNullOrWhiteSpace(name))
             {
