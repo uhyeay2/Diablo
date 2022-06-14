@@ -16,11 +16,13 @@ namespace Diablo.API.Tests.Endpoints.PlayerEndpoints
     {
         private UpdatePlayer _endpoint;
         private Player _player = A.New<Player>();
+        private string _playerNameTaken = "PlayerNameTaken";
 
         [OneTimeSetUp]
         public void OneTimeSetUp()
         {
             var mockedPlayerDataReader = new Mock<IReadPlayerData>();
+            mockedPlayerDataReader.Setup(x => x.IsNameTaken(_playerNameTaken)).Returns(true);
             
             var mockedPlayerDataWriter = new Mock<IWritePlayerData>();
 
@@ -46,6 +48,22 @@ namespace Diablo.API.Tests.Endpoints.PlayerEndpoints
                     (new UpdatePlayerRequest(new (name, (PlayerClass)4)));
 
             response!.StatusCode.ShouldBe(System.Net.HttpStatusCode.BadRequest);
+        }
+
+        [Test]
+        [TestCase(null)]
+        [TestCase("")]
+        [TestCase(" ")]
+        public async Task Give_InvalidPlayerName_Should_ReturnBadRequest2(string name)
+        {
+            try
+            {
+                await _endpoint.ExecuteAsync(new UpdatePlayerRequest(new(name, (PlayerClass)3)), default);
+            }
+            catch (Exception ex)
+            {
+                
+            }
         }
 
         [Test]

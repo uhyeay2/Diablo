@@ -49,13 +49,4 @@ namespace Diablo.API.Endpoints.PlayerEndpoints
             return new CreatePlayerResponse(await _playerDataReader.GetPlayerByNameAsync(request.Name));
         }
     }
-
-    public class CreatePlayerRequestValidator : Validator<CreatePlayerRequest> {
-        public CreatePlayerRequestValidator() {
-            RuleFor(x => x.Name)
-                .NotEmpty().WithMessage("Player name cannot be empty!")
-                .MinimumLength(3).WithMessage("Name was too short - must be at least three characters!")
-                .MaximumLength(20).WithMessage("Name was too long - must be 20 characters or shorter!");
-        }
-    }
 }

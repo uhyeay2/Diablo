@@ -13,7 +13,9 @@ namespace Diablo.API.Tests
 {
     internal static class TestConfig
     {
+
         private static readonly WebApplicationFactory<Program> factory = new();
+
         public static HttpClient ApiClient { get; } = factory.CreateClient();
 
     }

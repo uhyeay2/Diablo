@@ -23,7 +23,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Diablo.API", "Diablo.API\Di
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Diablo.ConsoleUI.Tests", "Diablo.ConsoleUI.Tests\Diablo.ConsoleUI.Tests.csproj", "{1226D2C5-5083-42F3-8DB0-BADF3D746E4A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Diablo.Services", "Diablo.Services\Diablo.Services.csproj", "{5F02DF59-6DE7-4F29-8F1C-345C255078CD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Diablo.Services", "Diablo.Services\Diablo.Services.csproj", "{5F02DF59-6DE7-4F29-8F1C-345C255078CD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
