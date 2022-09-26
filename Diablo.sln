@@ -25,6 +25,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Diablo.ConsoleUI.Tests", "D
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Diablo.Services", "Diablo.Services\Diablo.Services.csproj", "{5F02DF59-6DE7-4F29-8F1C-345C255078CD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApplication1", "WebApplication1\WebApplication1.csproj", "{23E43AA5-DECE-4748-B23C-9777C44BBA51}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -67,6 +69,10 @@ Global
 		{5F02DF59-6DE7-4F29-8F1C-345C255078CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5F02DF59-6DE7-4F29-8F1C-345C255078CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5F02DF59-6DE7-4F29-8F1C-345C255078CD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{23E43AA5-DECE-4748-B23C-9777C44BBA51}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{23E43AA5-DECE-4748-B23C-9777C44BBA51}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{23E43AA5-DECE-4748-B23C-9777C44BBA51}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{23E43AA5-DECE-4748-B23C-9777C44BBA51}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
